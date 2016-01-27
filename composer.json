@@ -1,0 +1,32 @@
+{
+  "name": "granam/tools",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jaroslav Týc",
+      "homepage": "http://jaroslavtyc.com",
+      "role": "Original author"
+    }
+  ],
+  "type": "project",
+  "description": "Toolbox",
+  "keywords": [
+    "php",
+    "string",
+    "object",
+    "toolbox"
+  ],
+  "homepage": "https://github.com/jaroslavtyc/granam-tools",
+  "autoload": {
+    "psr-4": {"Granam\\": "Granam/"}
+  },
+  "require": {
+    "php": ">=5.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "mockery/mockery": "0.9.*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
