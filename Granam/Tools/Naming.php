@@ -9,8 +9,8 @@ class Naming
      */
     public static function camelCaseClassToSnakeCase($value)
     {
-        if (!preg_match('~[\\\]?(?<basename>\w+)$~', $value, $matches)) {
-            return strtolower($value);
+        if (!preg_match('~[\\\]?(?<basename>\w+)[^\w_-]*$~', $value, $matches)) {
+            return $value;
         }
         $baseName = $matches['basename'];
         $parts = preg_split('~([A-Z][a-z_]*)~', $baseName, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);

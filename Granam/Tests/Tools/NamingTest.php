@@ -22,6 +22,8 @@ class NamingTest extends \PHPUnit_Framework_TestCase
             [__CLASS__, 'naming_test'],
             [__FUNCTION__, 'provide_value_to_snake_case'],
             ['IHave_CombinationsFOO', 'i_have_combinations_f_o_o'],
+            ['.,*#@azAZ  O_K...  &', 'o_k'],
+            ['.,*#@ ...  &', '.,*#@ ...  &'],
         ];
     }
 }
