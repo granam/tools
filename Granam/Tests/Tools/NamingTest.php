@@ -18,12 +18,12 @@ class NamingTest extends \PHPUnit_Framework_TestCase
 
     public function provideValueToSnakeCase()
     {
-        return [
-            [__CLASS__, 'naming_test'],
-            [__FUNCTION__, 'provide_value_to_snake_case'],
-            ['IHave_CombinationsFOO', 'i_have_combinations_f_o_o'],
-            ['.,*#@azAZ  O_K...  &', 'o_k'],
-            ['.,*#@ ...  &', '.,*#@ ...  &'],
-        ];
+        return array(
+            array(__CLASS__, 'naming_test'),
+            array(__FUNCTION__, 'provide_value_to_snake_case'),
+            array('IHave_CombinationsFOO', 'i_have_combinations_f_o_o'),
+            array('.,*#@azAZ  O_K...  &', 'o_k'),
+            array('.,*#@ ...  &', '.,*#@ ...  &'),
+        );
     }
 }
