@@ -43,7 +43,7 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_describe_array_and_resource()
     {
-        $this->assertSame('array', $this->describer->describe(array()));
+        $this->assertSame('array', $this->describer->describe([]));
         $this->assertSame('resource', $this->describer->describe(tmpfile()));
     }
 }

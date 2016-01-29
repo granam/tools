@@ -13,7 +13,7 @@ class Naming
             return $value;
         }
         $baseName = $matches['basename'];
-        $parts = preg_split('~([A-Z][a-z_]*)~', $baseName, -1, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY);
+        $parts = preg_split('~([A-Z][a-z_]*)~', $baseName, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $underscored = preg_replace('~_{2,}~', '_', implode('_', $parts));
         $snake_case = strtolower($underscored);
 
