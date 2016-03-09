@@ -14,6 +14,8 @@ abstract class TestWithMockery extends \PHPUnit_Framework_TestCase
      */
     protected function mockery($className)
     {
+        self::assertTrue(class_exists($className), "Given class $className does not exists.");
+
         return \Mockery::mock($className);
     }
 }
