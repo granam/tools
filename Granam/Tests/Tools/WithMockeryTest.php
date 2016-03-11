@@ -30,4 +30,18 @@ class WithMockeryTest extends TestWithMockery
         /** @noinspection PhpUndefinedMethodInspection */
         self::assertSame('bar', $mock->foo());
     }
+
+    /**
+     * @test
+     */
+    public function I_can_mock_even_interface()
+    {
+        $mock = $this->mockery('\Traversable');
+        $mock->shouldReceive('foo')
+            ->once()
+            ->andReturn('bar');
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        self::assertSame('bar', $mock->foo());
+    }
 }
