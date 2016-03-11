@@ -13,7 +13,7 @@ class NamingTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_turn_to_snake_case_anything($toConvert, $expectedResult)
     {
-        $this->assertSame($expectedResult, Naming::camelCaseClassToSnakeCase($toConvert));
+        self::assertSame($expectedResult, Naming::camelCaseClassToSnakeCase($toConvert));
     }
 
     public function provideValueToSnakeCase()

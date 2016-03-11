@@ -3,26 +3,17 @@ namespace Granam\Tools;
 
 class ValueDescriberTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var ValueDescriber
-     */
-    private $describer;
-
-    protected function setUp()
-    {
-        $this->describer = new ValueDescriber();
-    }
 
     /**
      * @test
      */
     public function I_can_describe_scalar_and_null()
     {
-        $this->assertSame('123', $this->describer->describe(123));
-        $this->assertSame('123.456', $this->describer->describe(123.456));
-        $this->assertSame("'foo'", $this->describer->describe('foo'));
-        $this->assertSame('NULL', $this->describer->describe(null));
-        $this->assertSame('true', $this->describer->describe(true));
+        self::assertSame('123', ValueDescriber::describe(123));
+        self::assertSame('123.456', ValueDescriber::describe(123.456));
+        self::assertSame("'foo'", ValueDescriber::describe('foo'));
+        self::assertSame('NULL', ValueDescriber::describe(null));
+        self::assertSame('true', ValueDescriber::describe(true));
     }
 
     /**
@@ -30,11 +21,11 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_describe_object()
     {
-        $this->assertSame('instance of stdClass', $this->describer->describe(new \stdClass()));
+        self::assertSame('instance of stdClass', ValueDescriber::describe(new \stdClass()));
         $value = 'foo';
-        $this->assertSame(
+        self::assertSame(
             'instance of ' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
-            $this->describer->describe(new ToStringObject($value))
+            ValueDescriber::describe(new ToStringObject($value))
         );
     }
 
@@ -43,8 +34,8 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_describe_array_and_resource()
     {
-        $this->assertSame('array', $this->describer->describe([]));
-        $this->assertSame('resource', $this->describer->describe(tmpfile()));
+        self::assertSame('array', ValueDescriber::describe([]));
+        self::assertSame('resource', ValueDescriber::describe(tmpfile()));
     }
 }
 

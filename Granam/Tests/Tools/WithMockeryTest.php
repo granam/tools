@@ -13,7 +13,8 @@ class WithMockeryTest extends TestWithMockery
             ->once()
             ->andReturn('bar');
 
-        $this->assertSame('bar', $mock->foo());
+        /** @noinspection PhpUndefinedMethodInspection */
+        self::assertSame('bar', $mock->foo());
     }
 
     /**
@@ -26,6 +27,7 @@ class WithMockeryTest extends TestWithMockery
             ->once()
             ->andReturn('bar');
 
-        $this->assertSame('bar', $mock->foo());
+        /** @noinspection PhpUndefinedMethodInspection */
+        self::assertSame('bar', $mock->foo());
     }
 }
