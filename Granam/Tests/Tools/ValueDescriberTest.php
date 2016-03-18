@@ -21,10 +21,10 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_describe_object()
     {
-        self::assertSame('instance of stdClass', ValueDescriber::describe(new \stdClass()));
+        self::assertSame('instance of \stdClass', ValueDescriber::describe(new \stdClass()));
         $value = 'foo';
         self::assertSame(
-            'instance of ' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
+            'instance of \\' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
             ValueDescriber::describe(new ToStringObject($value))
         );
     }
@@ -36,6 +36,29 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
     {
         self::assertSame('array', ValueDescriber::describe([]));
         self::assertSame('resource', ValueDescriber::describe(tmpfile()));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideVariableValues
+     *
+     * @param string $expectedResult
+     * @param mixed $value1
+     * @param mixed $value2
+     */
+    public function I_can_describe_multiple_values($expectedResult, $value1, $value2)
+    {
+        $values = func_get_args();
+        array_shift($values);
+        self::assertSame($expectedResult, call_user_func_array(['\Granam\Tools\ValueDescriber', 'describe'], $values));
+    }
+
+    public function provideVariableValues()
+    {
+        return [
+            ["123,123.45,'foo',true,NULL,array,resource", 123, 123.45, 'foo', true, null, ['bar'], tmpfile()],
+            ["123,123.45,'123','123.45',instance of \\stdClass",123, 123.45, '123', '123.45', new \stdClass()]
+        ];
     }
 }
 
