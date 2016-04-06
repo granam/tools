@@ -53,6 +53,10 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
         self::assertSame($expectedResult, call_user_func_array(['\Granam\Tools\ValueDescriber', 'describe'], $values));
     }
 
+    /**
+     * @codeCoverageIgnore
+     * @return array
+     */
     public function provideVariableValues()
     {
         return [

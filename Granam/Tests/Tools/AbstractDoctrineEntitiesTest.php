@@ -73,11 +73,7 @@ abstract class AbstractDoctrineEntitiesTest extends \PHPUnit_Framework_TestCase
                 continue;
             }
             $folderFullPath = $dir . DIRECTORY_SEPARATOR . $folder;
-            if (is_dir($folderFullPath)) {
-                $this->removeDirectory($folderFullPath);
-            } else {
-                unlink($folderFullPath);
-            }
+            unlink($folderFullPath);
         }
         rmdir($dir);
     }
@@ -173,7 +169,7 @@ abstract class AbstractDoctrineEntitiesTest extends \PHPUnit_Framework_TestCase
                 $grouped[$className] = [];
             }
             foreach ($entityGroup as $entity) {
-                if (!is_callable($entity, 'getId')) {
+                if (!is_callable([$entity, 'getId'])) {
                     throw new \LogicException(
                         "Entity of class {$className} should has ID getter 'getId'"
                     );
@@ -221,7 +217,11 @@ abstract class AbstractDoctrineEntitiesTest extends \PHPUnit_Framework_TestCase
             $expectedProxyFileNames[] = $this->assembleProxyNameByClass($expectedEntityClass);
         }
 
-        self::assertEquals($expectedProxyFileNames, $proxyFileNames, 'Generated proxies do not match with expected ones');
+        self::assertEquals(
+            $expectedProxyFileNames,
+            $proxyFileNames,
+            'Generated proxies do not match to expected ones'
+        );
 
         return $expectedProxyFileNames;
     }

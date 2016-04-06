@@ -18,7 +18,7 @@ class PositiveTestOfAbstractDoctrineEntitiesTest extends AbstractDoctrineEntitie
     protected function getExpectedEntityClasses()
     {
         return [
-            '\Granam\Tests\Tools\TestsOfTests\SomeEntity',
+            SomeEntity::getClass(),
         ];
     }
 
@@ -33,7 +33,7 @@ class PositiveTestOfAbstractDoctrineEntitiesTest extends AbstractDoctrineEntitie
     {
         /** @var Entity $original */
         $original = current($originalEntities);
-        $repository = $entityManager->getRepository('\Granam\Tests\Tools\TestsOfTests\SomeEntity');
+        $repository = $entityManager->getRepository(SomeEntity::getClass());
         $fetched = $repository->find($original->getId());
 
         return [

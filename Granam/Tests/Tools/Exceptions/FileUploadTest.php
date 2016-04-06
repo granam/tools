@@ -27,6 +27,10 @@ class FileUploadTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     * @return array
+     */
     public function provideUploadCodeAndDescription()
     {
         return [
