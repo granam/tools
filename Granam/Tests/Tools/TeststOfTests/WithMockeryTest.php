@@ -1,5 +1,7 @@
 <?php
-namespace Granam\Tests\Tools;
+namespace Granam\Tests\Tools\TestsOfTests;
+
+use Granam\Tests\Tools\TestWithMockery;
 
 class WithMockeryTest extends TestWithMockery
 {
