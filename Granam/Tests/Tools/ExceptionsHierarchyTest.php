@@ -15,4 +15,11 @@ class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
         return str_replace('\Tests', '', __NAMESPACE__);
     }
 
+    protected function getExceptionClassesSkippedFromUsageTest()
+    {
+        return [
+            '\Granam\Tools\Exceptions\FileUpload',
+        ];
+    }
+
 }
