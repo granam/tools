@@ -27,6 +27,10 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
             'instance of \\' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
             ValueDescriber::describe(new ToStringObject($value))
         );
+        self::assertSame(
+            'instance of \Granam\Tools\ObjectWithMagicCall',
+            ValueDescriber::describe(new ObjectWithMagicCall())
+        );
     }
 
     /**
@@ -61,7 +65,7 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ["123,123.45,'foo',true,NULL,array,resource", 123, 123.45, 'foo', true, null, ['bar'], tmpfile()],
-            ["123,123.45,'123','123.45',instance of \\stdClass",123, 123.45, '123', '123.45', new \stdClass()]
+            ["123,123.45,'123','123.45',instance of \\stdClass", 123, 123.45, '123', '123.45', new \stdClass()],
         ];
     }
 }
@@ -80,5 +84,13 @@ class ToStringObject
     public function __toString()
     {
         return (string)$this->value;
+    }
+}
+
+class ObjectWithMagicCall
+{
+    public function __call($name, array $arguments)
+    {
+        throw new \LogicException('Not implemented');
     }
 }

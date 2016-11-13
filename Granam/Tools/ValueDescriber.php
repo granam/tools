@@ -33,7 +33,7 @@ class ValueDescriber
 
         if (is_object($value)) {
             $description = 'instance of \\' . get_class($value);
-            if (is_callable([$value, '__toString'])) {
+            if (method_exists($value, '__toString') && is_callable([$value, '__toString'])) {
                 $description .= ' (' . $value . ')';
             }
 
