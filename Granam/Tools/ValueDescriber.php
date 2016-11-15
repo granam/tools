@@ -35,6 +35,8 @@ class ValueDescriber
             $description = 'instance of \\' . get_class($value);
             if (method_exists($value, '__toString') && is_callable([$value, '__toString'])) {
                 $description .= ' (' . $value . ')';
+            } else if ($value instanceof \DateTime) {
+                $description .= ' (' . $value->format(DATE_ATOM) . ')';
             }
 
             return $description;

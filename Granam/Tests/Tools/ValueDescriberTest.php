@@ -31,6 +31,10 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
             'instance of \Granam\Tools\ObjectWithMagicCall',
             ValueDescriber::describe(new ObjectWithMagicCall())
         );
+        self::assertSame(
+            'instance of \DateTime (2016-11-15T12:45:02+01:00)',
+            ValueDescriber::describe(new \DateTime('2016-11-15 12:45:02+01:00'))
+        );
     }
 
     /**
