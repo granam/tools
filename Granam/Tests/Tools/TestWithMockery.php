@@ -53,8 +53,8 @@ abstract class TestWithMockery extends \PHPUnit_Framework_TestCase
      *
      * @return string|TestWithMockery
      */
-    protected function getSutClass()
+    protected static function getSutClass()
     {
-        return preg_replace('~\\\Tests(.+)Test$~', '$1', get_class($this));
+        return preg_replace('~\\\Tests(.+)Test$~', '$1', get_called_class());
     }
 }
