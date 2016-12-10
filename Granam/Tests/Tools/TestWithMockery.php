@@ -51,10 +51,12 @@ abstract class TestWithMockery extends \PHPUnit_Framework_TestCase
      * Expects test class with name \Granam\Tests\Tools\TestWithMockery therefore extended by \Tests sub-namespace
      * and Test suffix
      *
+     * @param string $sutTestClass
+     * @param string $regexp
      * @return string|TestWithMockery
      */
-    protected static function getSutClass()
+    protected static function getSutClass($sutTestClass = null, $regexp = '~\\\Tests(.+)Test$~')
     {
-        return preg_replace('~\\\Tests(.+)Test$~', '$1', get_called_class());
+        return preg_replace($regexp, '$1', $sutTestClass ?: get_called_class());
     }
 }
