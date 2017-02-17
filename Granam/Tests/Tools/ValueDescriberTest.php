@@ -1,7 +1,9 @@
 <?php
 namespace Granam\Tools;
 
-class ValueDescriberTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ValueDescriberTest extends TestCase
 {
 
     /**
@@ -26,10 +28,6 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
         self::assertSame(
             'instance of \\' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
             ValueDescriber::describe(new ToStringObject($value))
-        );
-        self::assertSame(
-            'instance of \Granam\Tools\ObjectWithMagicCall',
-            ValueDescriber::describe(new ObjectWithMagicCall())
         );
         self::assertSame(
             'instance of \DateTime (2016-11-15T12:45:02+01:00)',
@@ -88,13 +86,5 @@ class ToStringObject
     public function __toString()
     {
         return (string)$this->value;
-    }
-}
-
-class ObjectWithMagicCall
-{
-    public function __call($name, array $arguments)
-    {
-        throw new \LogicException('Not implemented');
     }
 }

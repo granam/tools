@@ -2,13 +2,13 @@
 namespace Granam\Tests\Tools\Exceptions;
 
 use Granam\Tools\Exceptions\FileUpload;
+use PHPUnit\Framework\TestCase;
 
-class FileUploadTest extends \PHPUnit_Framework_TestCase
+class FileUploadTest extends TestCase
 {
     /**
      * @test
      * @dataProvider provideUploadCodeAndDescription
-     *
      * @param int $uploadCode
      * @param string $contentRegexp
      */
