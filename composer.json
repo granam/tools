@@ -18,13 +18,19 @@
   ],
   "homepage": "https://github.com/jaroslavtyc/granam-tools",
   "autoload": {
-    "psr-4": {"Granam\\": "Granam/"}
+    "psr-4": {
+      "Granam\\": "Granam/"
+    }
   },
   "require": {
     "php": ">=5.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4",
-    "mockery/mockery": "dev-master"
-  }
+    "phpunit/phpunit": "~5.0",
+    "mockery/mockery": "~0.9",
+    "granam/exceptions-hierarchy": "~3.0",
+    "doctrine/orm": "2.*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

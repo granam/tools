@@ -3,26 +3,17 @@ namespace Granam\Tools;
 
 class ValueDescriberTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var ValueDescriber
-     */
-    private $describer;
-
-    protected function setUp()
-    {
-        $this->describer = new ValueDescriber();
-    }
 
     /**
      * @test
      */
     public function I_can_describe_scalar_and_null()
     {
-        $this->assertSame('123', $this->describer->describe(123));
-        $this->assertSame('123.456', $this->describer->describe(123.456));
-        $this->assertSame("'foo'", $this->describer->describe('foo'));
-        $this->assertSame('NULL', $this->describer->describe(null));
-        $this->assertSame('true', $this->describer->describe(true));
+        self::assertSame('123', ValueDescriber::describe(123));
+        self::assertSame('123.456', ValueDescriber::describe(123.456));
+        self::assertSame("'foo'", ValueDescriber::describe('foo'));
+        self::assertSame('NULL', ValueDescriber::describe(null));
+        self::assertSame('true', ValueDescriber::describe(true));
     }
 
     /**
@@ -30,11 +21,19 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_describe_object()
     {
-        $this->assertSame('instance of stdClass', $this->describer->describe(new \stdClass()));
+        self::assertSame('instance of \stdClass', ValueDescriber::describe(new \stdClass()));
         $value = 'foo';
-        $this->assertSame(
-            'instance of ' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
-            $this->describer->describe(new ToStringObject($value))
+        self::assertSame(
+            'instance of \\' . __NAMESPACE__ . '\ToStringObject ' . "($value)",
+            ValueDescriber::describe(new ToStringObject($value))
+        );
+        self::assertSame(
+            'instance of \Granam\Tools\ObjectWithMagicCall',
+            ValueDescriber::describe(new ObjectWithMagicCall())
+        );
+        self::assertSame(
+            'instance of \DateTime (2016-11-15T12:45:02+01:00)',
+            ValueDescriber::describe(new \DateTime('2016-11-15 12:45:02+01:00'))
         );
     }
 
@@ -43,8 +42,35 @@ class ValueDescriberTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_describe_array_and_resource()
     {
-        $this->assertSame('array', $this->describer->describe([]));
-        $this->assertSame('resource', $this->describer->describe(tmpfile()));
+        self::assertSame('array', ValueDescriber::describe([]));
+        self::assertSame('resource', ValueDescriber::describe(tmpfile()));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideVariableValues
+     *
+     * @param string $expectedResult
+     * @param mixed $value1
+     * @param mixed $value2
+     */
+    public function I_can_describe_multiple_values($expectedResult, $value1, $value2)
+    {
+        $values = func_get_args();
+        array_shift($values);
+        self::assertSame($expectedResult, call_user_func_array(['\Granam\Tools\ValueDescriber', 'describe'], $values));
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * @return array
+     */
+    public function provideVariableValues()
+    {
+        return [
+            ["123,123.45,'foo',true,NULL,array,resource", 123, 123.45, 'foo', true, null, ['bar'], tmpfile()],
+            ["123,123.45,'123','123.45',instance of \\stdClass", 123, 123.45, '123', '123.45', new \stdClass()],
+        ];
     }
 }
 
@@ -62,5 +88,13 @@ class ToStringObject
     public function __toString()
     {
         return (string)$this->value;
+    }
+}
+
+class ObjectWithMagicCall
+{
+    public function __call($name, array $arguments)
+    {
+        throw new \LogicException('Not implemented');
     }
 }
