@@ -1,9 +1,9 @@
 <?php
 namespace Granam\Tests\Tools;
 
-use PHPUnit\Framework\TestCase;
+require_once __DIR__ . '/PHPUnit_Framework_TestCase.php';
 
-abstract class TestWithMockery extends TestCase
+abstract class TestWithMockery extends \PHPUnit_Framework_TestCase
 {
     protected function tearDown()
     {
