@@ -22,7 +22,7 @@ class GranamToolsExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
     }
 
     /**
-     * @return string
+     * @return array|string[]
      */
     protected function getExceptionClassesSkippedFromUsageTest()
     {
