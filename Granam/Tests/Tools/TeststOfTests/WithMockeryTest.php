@@ -46,4 +46,55 @@ class WithMockeryTest extends TestWithMockery
         /** @noinspection PhpUndefinedMethodInspection */
         self::assertSame('bar', $mock->foo());
     }
+
+    /**
+     * @test
+     */
+    public function I_get_type_test()
+    {
+        $traversableTypeFromClassName = $this->type('\Traversable');
+        $traversable = new \ArrayObject();
+        self::assertInstanceOf('\Traversable', $traversable);
+        self::assertTrue($traversableTypeFromClassName->match($traversable));
+
+        $traversableTypeFromObject = $this->type($traversable);
+        self::assertTrue($traversableTypeFromObject->match($traversable));
+
+        $floatType = $this->type('float');
+        $float = 1.2;
+        self::assertTrue($floatType->match($float));
+        $int = 1;
+        self::assertFalse($floatType->match($int));
+
+        $arrayType = $this->type([]);
+        $array = [];
+        self::assertTrue($arrayType->match($array));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_sut_class_from_current_test()
+    {
+        self::assertSame(preg_replace('~Test$~', '', str_replace('\Tests\\', '\\', __CLASS__)), self::getSutClass());
+        self::assertSame(
+            preg_replace('~Test$~', '', str_replace('\Tests\\', '\\', __CLASS__)),
+            self::getSutClass(__CLASS__)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_sut_class_from_any_class()
+    {
+        self::assertSame(
+            \DateTime::class,
+            self::getSutClass(\DateTime::class)
+        );
+        self::assertSame(
+            'DT',
+            self::getSutClass(\DateTime::class, '~([A-Z])[a-z]+~')
+        );
+    }
 }
