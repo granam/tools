@@ -5,7 +5,6 @@ class ValueDescriber
 {
     /**
      * @param mixed $value ...
-     *
      * @return string
      */
     public static function describe($value): string
@@ -31,7 +30,14 @@ class ValueDescriber
             return (string)var_export($value, true);
         }
         if (is_array($value)) {
-            return var_export($value, true) ?? 'array';
+            ob_start();
+            var_dump($value);
+            $dumped = ob_get_clean();
+            $withoutItemsCount = preg_replace('~array\(\d+\)~', 'array', $dumped);
+            $withoutEndingEmptyLine = preg_replace('~\n+\}\s*~', '}', $withoutItemsCount);
+            $withoutNewLineAfterArrayIndex = preg_replace('~\[(\d+)\](=>)\n\s*~', '$1 $2 ', $withoutEndingEmptyLine);
+
+            return $withoutNewLineAfterArrayIndex;
         }
 
         if (is_object($value)) {
