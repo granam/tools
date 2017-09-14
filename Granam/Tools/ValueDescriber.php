@@ -8,7 +8,7 @@ class ValueDescriber
      *
      * @return string
      */
-    public static function describe($value)
+    public static function describe($value): string
     {
         if (func_num_args() === 1) {
             return self::describeSingleValue($value);
@@ -25,10 +25,13 @@ class ValueDescriber
         );
     }
 
-    private static function describeSingleValue($value)
+    private static function describeSingleValue($value): string
     {
         if (is_scalar($value) || $value === null) {
-            return var_export($value, true);
+            return (string)var_export($value, true);
+        }
+        if (is_array($value)) {
+            return var_export($value, true) ?? 'array';
         }
 
         if (is_object($value)) {
