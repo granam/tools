@@ -21,7 +21,7 @@ class FileUpload extends \RuntimeException implements Runtime
             case UPLOAD_ERR_FORM_SIZE : // 2
                 return
                     'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form: '
-                    . (isset($_REQUEST['MAX_FILE_SIZE']) ? $_REQUEST['MAX_FILE_SIZE'] : '');
+                    . ($_REQUEST['MAX_FILE_SIZE'] ?? '');
             case UPLOAD_ERR_PARTIAL : // 3
                 return 'The uploaded file was only partially uploaded';
             case UPLOAD_ERR_NO_FILE : // 4
