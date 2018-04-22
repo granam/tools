@@ -54,9 +54,9 @@ class ValueDescriberTest extends TestCase
      */
     public function I_can_describe_multiple_values($expectedResult, $value1, $value2)
     {
-        $values = func_get_args();
-        array_shift($values);
-        self::assertSame($expectedResult, call_user_func_array([ValueDescriber::class, 'describe'], $values));
+        $values = \func_get_args();
+        \array_shift($values);
+        self::assertSame($expectedResult, \call_user_func_array([ValueDescriber::class, 'describe'], $values));
     }
 
     /**
@@ -66,7 +66,7 @@ class ValueDescriberTest extends TestCase
     public function provideVariableValues(): array
     {
         return [
-            ["123,123.45,'foo',true,NULL,array {\n  0 => string(3) \"bar\"},resource", 123, 123.45, 'foo', true, null, ['bar'], tmpfile()],
+            ["123,123.45,'foo',true,NULL,array {\n  0 => string(3) \"bar\"},resource", 123, 123.45, 'foo', true, null, ['bar'], \tmpfile()],
             ["123,123.45,'123','123.45',instance of \\stdClass", 123, 123.45, '123', '123.45', new \stdClass()],
         ];
     }
