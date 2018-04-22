@@ -1,10 +1,10 @@
 <?php
 namespace Granam\Tests\Tools\Exceptions;
 
-use Granam\Tools\Exceptions\FileUpload;
+use Granam\Tools\Exceptions\FileUploadException;
 use PHPUnit\Framework\TestCase;
 
-class FileUploadTest extends TestCase
+class FileUploadExceptionTest extends TestCase
 {
     /**
      * @test
@@ -12,13 +12,13 @@ class FileUploadTest extends TestCase
      * @param int $uploadCode
      * @param string $contentRegexp
      */
-    public function I_get_upload_codes_described($uploadCode, $contentRegexp)
+    public function I_get_upload_codes_described(int $uploadCode, string $contentRegexp)
     {
         $message = 'foo bar';
         foreach ([new \Exception(), null] as $previous) { // previous exception is optional
             try {
-                throw new FileUpload($message, $uploadCode, $previous); // can be thrown
-            } catch (FileUpload $fileUploadException) {
+                throw new FileUploadException($message, $uploadCode, $previous); // can be thrown
+            } catch (FileUploadException $fileUploadException) {
                 self::assertSame(0, strpos($fileUploadException->getMessage(), $message));
                 self::assertRegExp($contentRegexp, $fileUploadException->getMessage());
                 self::assertSame($uploadCode, $fileUploadException->getCode());
@@ -31,7 +31,7 @@ class FileUploadTest extends TestCase
      * @codeCoverageIgnore
      * @return array
      */
-    public function provideUploadCodeAndDescription()
+    public function provideUploadCodeAndDescription(): array
     {
         return [
             [UPLOAD_ERR_OK, '~\s*OK\s*~'],

@@ -1,15 +1,15 @@
 <?php
 namespace Granam\Tools\Exceptions;
 
-class FileUpload extends \RuntimeException implements Runtime
+class FileUploadException extends \RuntimeException implements Runtime
 {
-    public function __construct($message, $fileErrorCode = UPLOAD_ERR_OK, \Exception $previousException = null)
+    public function __construct(string $message, int $fileErrorCode = UPLOAD_ERR_OK, \Exception $previousException = null)
     {
         $fileErrorMessage = $this->codeToMessage($fileErrorCode);
         parent::__construct($message . " ($fileErrorMessage)", $fileErrorCode, $previousException);
     }
 
-    private function codeToMessage($fileErrorCode)
+    private function codeToMessage(int $fileErrorCode)
     {
         switch ($fileErrorCode) {
             case UPLOAD_ERR_OK : // 0
@@ -17,7 +17,7 @@ class FileUpload extends \RuntimeException implements Runtime
             case UPLOAD_ERR_INI_SIZE : // 1
                 return
                     'The uploaded file exceeds the INI directive upload_max_filesize: '
-                    . ini_get('upload_max_filesize');
+                    . \ini_get('upload_max_filesize');
             case UPLOAD_ERR_FORM_SIZE : // 2
                 return
                     'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form: '

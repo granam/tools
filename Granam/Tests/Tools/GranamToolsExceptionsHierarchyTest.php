@@ -26,7 +26,7 @@ class GranamToolsExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
      */
     protected function getExceptionClassesSkippedFromUsageTest()
     {
-        return ['\Granam\Tools\Exceptions\FileUpload'];
+        return ['\Granam\Tools\Exceptions\FileUploadException'];
     }
 
 }
