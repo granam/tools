@@ -1,12 +1,33 @@
 <?php
 namespace Granam\Tests\Tools;
 
+use Mockery\Generator\CachingGenerator;
+use Mockery\Generator\StringManipulationGenerator;
+use Mockery\Matcher\Type;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class TestWithMockery extends TestCase
 {
+
+    private $strict = true;
+    private static $strictGenerator;
+
+    protected function setUp()
+    {
+        if (!self::$strictGenerator) {
+            self::$strictGenerator = StringManipulationGenerator::withDefaultPasses();
+            self::$strictGenerator->addPass(new CalledMethodExistsPass());
+            \Mockery::setGenerator(new CachingGenerator(self::$strictGenerator));
+        }
+    }
+
     protected function tearDown()
     {
+        if (!$this->strict) {
+            \Mockery::setGenerator(new CachingGenerator(self::$strictGenerator));
+            $this->strict = true;
+        }
         \Mockery::close();
     }
 
@@ -14,10 +35,10 @@ abstract class TestWithMockery extends TestCase
      * @param string $className
      * @return \Mockery\MockInterface
      */
-    protected function mockery($className)
+    protected function mockery(string $className): MockInterface
     {
         self::assertTrue(
-            class_exists($className) || interface_exists($className),
+            \class_exists($className) || \interface_exists($className),
             "Given class $className does not exists."
         );
 
@@ -25,28 +46,40 @@ abstract class TestWithMockery extends TestCase
     }
 
     /**
+     * @param string $className
+     * @return MockInterface
+     */
+    protected function weakMockery(string $className): MockInterface
+    {
+        $this->strict = false;
+        \Mockery::setGenerator(new CachingGenerator(StringManipulationGenerator::withDefaultPasses()));
+
+        return $this->mockery($className);
+    }
+
+    /**
      * @param mixed $expected
      * @return \Mockery\Matcher\Type
      */
-    protected function type($expected)
+    protected function type($expected): Type
     {
         return \Mockery::type($this->getTypeOf($expected));
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return string
      */
-    private function getTypeOf($value)
+    private function getTypeOf($value): string
     {
-        if (is_string($value)) {
+        if (\is_string($value)) {
             return $value; // not type of "string" but direct description - like class name
         }
-        if (is_object($value)) {
-            return get_class($value);
+        if (\is_object($value)) {
+            return \get_class($value);
         }
 
-        return gettype($value);
+        return \gettype($value);
     }
 
     /**
@@ -57,8 +90,8 @@ abstract class TestWithMockery extends TestCase
      * @param string $regexp
      * @return string|TestWithMockery
      */
-    protected static function getSutClass($sutTestClass = null, $regexp = '~\\\Tests(.+)Test$~')
+    protected static function getSutClass(string $sutTestClass = null, string $regexp = '~\\\Tests(.+)Test$~')
     {
-        return preg_replace($regexp, '$1', $sutTestClass ?: get_called_class());
+        return \preg_replace($regexp, '$1', $sutTestClass ?: static::class);
     }
 }
