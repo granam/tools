@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Granam\Tests\Tools\Exceptions;
 
-use Granam\Tests\ExceptionsHierarchy\Exceptions\DummyExceptionsHierarchy\Logic;
-
-class MockingOfNonExistingMethod extends \LogicException implements Logic
+class MockingOfNonExistingMethod extends \LogicException
 {
 
 }
