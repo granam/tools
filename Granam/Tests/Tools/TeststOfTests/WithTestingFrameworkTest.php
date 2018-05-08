@@ -9,7 +9,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_use_mockery_expectations_now()
+    public function I_can_use_mockery_expectations_now(): void
     {
         /** @var MockInterface|\DateTime $mock */
         $mock = $this->mockery(\DateTime::class);
@@ -22,7 +22,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_use_mockery_expectations_again()
+    public function I_can_use_mockery_expectations_again(): void
     {
         /** @var MockInterface|\DateTime $mock */
         $mock = $this->mockery(\DateTime::class);
@@ -35,7 +35,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_mock_even_interface()
+    public function I_can_mock_even_interface(): void
     {
         /** @var MockInterface|\IteratorAggregate $mock */
         $mock = $this->mockery(\IteratorAggregate::class);
@@ -48,7 +48,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_get_type_test()
+    public function I_get_type_test(): void
     {
         $traversableTypeFromClassName = $this->type(\Traversable::class);
         $traversable = new \ArrayObject();
@@ -72,7 +72,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_sut_class_from_current_test()
+    public function I_can_get_sut_class_from_current_test(): void
     {
         self::assertSame(preg_replace('~Test$~', '', str_replace('\Tests\\', '\\', __CLASS__)), self::getSutClass());
         self::assertSame(
@@ -84,7 +84,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_sut_class_from_any_class()
+    public function I_can_get_sut_class_from_any_class(): void
     {
         self::assertSame(
             \DateTime::class,
@@ -101,7 +101,7 @@ class WithTestingFrameworkTest extends TestWithMockery
      * @expectedException \Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod
      * @expectedExceptionMessageRegExp ~resetGregorianCalendar~
      */
-    public function I_can_not_mock_non_existing_method_by_default()
+    public function I_can_not_mock_non_existing_method_by_default(): void
     {
         $mock = $this->mockery(\DateTime::class);
         $mock->allows('resetGregorianCalendar');
@@ -110,7 +110,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_mock_non_existing_method_if_desired()
+    public function I_can_mock_non_existing_method_if_desired(): void
     {
         $mock = $this->weakMockery(\DateTime::class);
         $mock->expects('resetGregorianCalendar')
@@ -125,7 +125,7 @@ class WithTestingFrameworkTest extends TestWithMockery
      * @expectedException \Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod
      * @expectedExceptionMessageRegExp ~resetGregorianCalendar~
      */
-    public function I_can_not_mock_non_existing_method_by_default_again()
+    public function I_can_not_mock_non_existing_method_by_default_again(): void
     {
         $mock = $this->mockery(\DateTime::class);
         $mock->allows('resetGregorianCalendar');

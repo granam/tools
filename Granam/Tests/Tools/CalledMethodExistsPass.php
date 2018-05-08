@@ -9,7 +9,7 @@ use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class CalledMethodExistsPass implements Pass
 {
-    public function apply($code, MockConfiguration $config)
+    public function apply($code, MockConfiguration $config): string
     {
         $guardMockedMethodsExists = $this->getCodeOfGuardMockedMethodsExists();
         $code = \preg_replace(
@@ -50,7 +50,7 @@ class CalledMethodExistsPass implements Pass
      * Have to use same variable as @see \Mockery\Mock::shouldReceive
      * @param array $methodNames
      */
-    protected function guardMockedMethodsExists(array $methodNames)
+    protected function guardMockedMethodsExists(array $methodNames): void
     {
         $testedInterface = \get_parent_class($this);
         $testedInterfaces = [];

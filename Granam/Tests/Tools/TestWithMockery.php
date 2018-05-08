@@ -10,10 +10,12 @@ use PHPUnit\Framework\TestCase;
 abstract class TestWithMockery extends TestCase
 {
 
+    /** @var bool */
     private $strict = true;
+    /** @var StringManipulationGenerator|null */
     private static $strictGenerator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!self::$strictGenerator) {
             self::$strictGenerator = StringManipulationGenerator::withDefaultPasses();
@@ -22,7 +24,7 @@ abstract class TestWithMockery extends TestCase
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if (!$this->strict) {
             \Mockery::setGenerator(new CachingGenerator(self::$strictGenerator));
@@ -90,7 +92,7 @@ abstract class TestWithMockery extends TestCase
      * @param string $regexp
      * @return string|TestWithMockery
      */
-    protected static function getSutClass(string $sutTestClass = null, string $regexp = '~\\\Tests(.+)Test$~')
+    protected static function getSutClass(string $sutTestClass = null, string $regexp = '~\\\Tests(.+)Test$~'): string
     {
         return \preg_replace($regexp, '$1', $sutTestClass ?: static::class);
     }

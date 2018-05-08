@@ -1,9 +1,11 @@
 <?php
-declare(strict_types = 1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
 
 namespace Granam\Tools;
 
-class ValueDescriber
+use Granam\Strict\Object\StrictObject;
+
+class ValueDescriber extends StrictObject
 {
     /**
      * @param mixed $value ...
@@ -46,7 +48,7 @@ class ValueDescriber
             $description = 'instance of \\' . \get_class($value);
             if (\method_exists($value, '__toString') && \is_callable([$value, '__toString'])) {
                 $description .= ' (' . $value . ')';
-            } else if ($value instanceof \DateTime) {
+            } elseif ($value instanceof \DateTime) {
                 $description .= ' (' . $value->format(DATE_ATOM) . ')';
             }
 

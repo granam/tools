@@ -12,7 +12,7 @@ class FileUploadExceptionTest extends TestCase
      * @param int $uploadCode
      * @param string $contentRegexp
      */
-    public function I_get_upload_codes_described(int $uploadCode, string $contentRegexp)
+    public function I_get_upload_codes_described(int $uploadCode, string $contentRegexp): void
     {
         $message = 'foo bar';
         foreach ([new \Exception(), null] as $previous) { // previous exception is optional

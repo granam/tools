@@ -9,7 +9,7 @@ class ValueDescriberTest extends TestCase
     /**
      * @test
      */
-    public function I_can_describe_scalar_and_null()
+    public function I_can_describe_scalar_and_null(): void
     {
         self::assertSame('123', ValueDescriber::describe(123));
         self::assertSame('123.456', ValueDescriber::describe(123.456));
@@ -21,7 +21,7 @@ class ValueDescriberTest extends TestCase
     /**
      * @test
      */
-    public function I_can_describe_object()
+    public function I_can_describe_object(): void
     {
         self::assertSame('instance of \stdClass', ValueDescriber::describe(new \stdClass()));
         $value = 'foo';
@@ -38,7 +38,7 @@ class ValueDescriberTest extends TestCase
     /**
      * @test
      */
-    public function I_can_describe_array_and_resource()
+    public function I_can_describe_array_and_resource(): void
     {
         self::assertSame('array {}', ValueDescriber::describe([]));
         self::assertSame('resource', ValueDescriber::describe(tmpfile()));
@@ -52,7 +52,7 @@ class ValueDescriberTest extends TestCase
      * @param mixed $value1
      * @param mixed $value2
      */
-    public function I_can_describe_multiple_values($expectedResult, $value1, $value2)
+    public function I_can_describe_multiple_values(string $expectedResult, $value1, $value2): void
     {
         $values = \func_get_args();
         \array_shift($values);
