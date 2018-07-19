@@ -15,7 +15,7 @@ abstract class TestWithMockery extends TestCase
     /** @var StringManipulationGenerator|null */
     private static $strictGenerator;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         if (!self::$strictGenerator) {
             self::$strictGenerator = StringManipulationGenerator::withDefaultPasses();
@@ -24,7 +24,7 @@ abstract class TestWithMockery extends TestCase
         }
     }
 
-    protected function tearDown(): void
+    protected function tearDown()
     {
         if (!$this->strict) {
             \Mockery::setGenerator(new CachingGenerator(self::$strictGenerator));
