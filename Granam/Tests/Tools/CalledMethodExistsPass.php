@@ -78,7 +78,7 @@ class CalledMethodExistsPass implements Pass
             throw new \Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod(
                 "Method '{$methodName}' does not exist on tested object '"
                 . \implode(',', $testedInterfaces) . "'"
-                . ' (see ' . CalledMethodExistsPass::class . '->' . \str_replace(static::class . '::', '', __METHOD__) . ' for details)'
+                . ' (use weakMockery() method if you really need to mock it)'
             );
         }
     }
