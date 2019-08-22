@@ -36,29 +36,31 @@ abstract class TestWithMockery extends TestCase
 
     /**
      * @param string $className
-     * @param $constructorArguments
+     * @param array $constructorArguments
      * @return \Mockery\MockInterface
      */
-    protected function mockery(string $className, array $constructorArguments = []): MockInterface
+    protected function mockery(...$args): MockInterface
     {
+        $className = $args[0];
         self::assertTrue(
             \class_exists($className) || \interface_exists($className),
             "Given class $className does not exists."
         );
 
-        return \Mockery::mock($className, $constructorArguments);
+        return \Mockery::mock(...$args);
     }
 
     /**
      * @param string $className
+     * @param array $constructorArguments
      * @return MockInterface
      */
-    protected function weakMockery(string $className): MockInterface
+    protected function weakMockery(...$args): MockInterface
     {
         $this->strict = false;
         \Mockery::setGenerator(new CachingGenerator(StringManipulationGenerator::withDefaultPasses()));
 
-        return $this->mockery($className);
+        return $this->mockery(...$args);
     }
 
     /**
