@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Granam\Tests\Tools;
 
 use Mockery\Generator\CachingGenerator;
@@ -35,16 +36,17 @@ abstract class TestWithMockery extends TestCase
 
     /**
      * @param string $className
+     * @param $constructorArguments
      * @return \Mockery\MockInterface
      */
-    protected function mockery(string $className): MockInterface
+    protected function mockery(string $className, array $constructorArguments = []): MockInterface
     {
         self::assertTrue(
             \class_exists($className) || \interface_exists($className),
             "Given class $className does not exists."
         );
 
-        return \Mockery::mock($className);
+        return \Mockery::mock($className, $constructorArguments);
     }
 
     /**

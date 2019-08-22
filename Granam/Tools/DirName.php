@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Granam\Tools;
 
 use Granam\Strict\Object\StrictObject;
