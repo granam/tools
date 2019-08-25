@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Granam\Tests\Tools;
 
 use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;

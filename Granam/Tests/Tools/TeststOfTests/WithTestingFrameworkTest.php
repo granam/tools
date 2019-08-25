@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Granam\Tests\Tools\TestsOfTests;
 
+use Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod;
 use Granam\Tests\Tools\TestWithMockery;
 use Mockery\MockInterface;
 
@@ -98,11 +100,11 @@ class WithTestingFrameworkTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod
-     * @expectedExceptionMessageRegExp ~resetGregorianCalendar~
      */
     public function I_can_not_mock_non_existing_method_by_default(): void
     {
+        $this->expectException(MockingOfNonExistingMethod::class);
+        $this->expectExceptionMessageRegExp('~resetGregorianCalendar~');
         $mock = $this->mockery(\DateTime::class);
         $mock->allows('resetGregorianCalendar');
     }
@@ -122,11 +124,11 @@ class WithTestingFrameworkTest extends TestWithMockery
     /**
      * @test
      * @depends I_can_mock_non_existing_method_if_desired
-     * @expectedException \Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod
-     * @expectedExceptionMessageRegExp ~resetGregorianCalendar~
      */
     public function I_can_not_mock_non_existing_method_by_default_again(): void
     {
+        $this->expectException(MockingOfNonExistingMethod::class);
+        $this->expectExceptionMessageRegExp('~resetGregorianCalendar~');
         $mock = $this->mockery(\DateTime::class);
         $mock->allows('resetGregorianCalendar');
     }
