@@ -26,7 +26,7 @@ class DirName extends StrictObject
             }
             $cleansedParts[] = $part;
         }
-        $cleansedPath = implode('/', $cleansedParts);
+        $cleansedPath = implode('/', array_reverse($cleansedParts));
         if ($hasRoot) {
             $cleansedPath = '/' . $cleansedPath;
         }

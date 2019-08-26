@@ -22,6 +22,7 @@ class DirNameTest extends TestCase
     {
         return [
             ['/foo/bar/baz/qux/../../..', '/foo'],
+            ['/home/jaroslav/projects/docker/drdplus/www/rules.skeleton/DrdPlus/Tests/../..', '/home/jaroslav/projects/docker/drdplus/www/rules.skeleton'],
             ['/foo/bar/../baz/../..', '/'],
             ['/foo/bar/../baz/../.././qux.txt', '/qux.txt'],
         ];
