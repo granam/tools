@@ -9,7 +9,7 @@ class FileUploadException extends \RuntimeException implements Runtime
         parent::__construct($message . " ($fileErrorMessage)", $fileErrorCode, $previousException);
     }
 
-    private function codeToMessage(int $fileErrorCode)
+    private function codeToMessage(int $fileErrorCode): string
     {
         switch ($fileErrorCode) {
             case UPLOAD_ERR_OK : // 0

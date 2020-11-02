@@ -21,7 +21,7 @@ class FileUploadExceptionTest extends TestCase
                 throw new FileUploadException($message, $uploadCode, $previous); // can be thrown
             } catch (FileUploadException $fileUploadException) {
                 self::assertSame(0, strpos($fileUploadException->getMessage(), $message));
-                self::assertRegExp($contentRegexp, $fileUploadException->getMessage());
+                self::assertMatchesRegularExpression($contentRegexp, $fileUploadException->getMessage());
                 self::assertSame($uploadCode, $fileUploadException->getCode());
                 self::assertSame($previous, $fileUploadException->getPrevious());
             }

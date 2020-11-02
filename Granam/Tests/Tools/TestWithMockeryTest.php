@@ -2,9 +2,7 @@
 
 namespace Granam\Tests\Tools;
 
-use Composer\Autoload\ClassLoader;
-use DrdPlus\RulesSkeleton\Web\WebPartsContainer;
-use Granam\WebContentBuilder\Web\WebFiles;
+use Mockery\MockInterface;
 
 class TestWithMockeryTest extends TestWithMockery
 {
@@ -24,6 +22,7 @@ class TestWithMockeryTest extends TestWithMockery
     public function I_can_create_partial_mock_with_constructor_arguments()
     {
         $dateTime = new \DateTime('2018-01-01 01:01:01');
+        /** @var \DateTime|MockInterface $dateTimeMock */
         $dateTimeMock = $this->mockery(\DateTime::class, [$dateTime->format('c')]);
         $dateTimeMock->makePartial();
         self::assertSame($dateTime->format('c'), $dateTimeMock->format('c'));

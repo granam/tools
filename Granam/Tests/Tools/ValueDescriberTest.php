@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Granam\Tools;
+namespace Granam\Tests\Tools;
 
+use Granam\Tools\ValueDescriber;
 use PHPUnit\Framework\TestCase;
 
 class ValueDescriberTest extends TestCase

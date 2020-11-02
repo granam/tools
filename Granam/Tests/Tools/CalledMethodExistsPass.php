@@ -25,20 +25,18 @@ class CalledMethodExistsPass implements Pass
      */
     protected function getCodeOfGuardMockedMethodsExists(): string
     {
-        /** @noinspection PhpUnhandledExceptionInspection */
         $reflectionClass = new \ReflectionClass(static::class);
         $guardMockedMethodsExists = $reflectionClass->getMethod('guardMockedMethodsExists');
         $startLine = $guardMockedMethodsExists->getStartLine();
         $endLine = $guardMockedMethodsExists->getEndLine();
-        $classCode = \file_get_contents($reflectionClass->getFileName());
-        $classLines = \preg_split('~(\r|\n|\r\n|\n\r)~', $classCode);
-        $methodLines = \array_splice($classLines, $startLine, $endLine - $startLine);
-        //
-        if (\trim(\reset($methodLines)) === '{') {
-            \array_shift($methodLines); // removes first row
+        $classCode = file_get_contents($reflectionClass->getFileName());
+        $classLines = preg_split('~(\r|\n|\r\n|\n\r)~', $classCode);
+        $methodLines = array_splice($classLines, $startLine, $endLine - $startLine);
+        if (trim(reset($methodLines)) === '{') {
+            array_shift($methodLines); // removes first row
         }
-        if (\trim(\end($methodLines)) === '}') {
-            \array_pop($methodLines); // removes last row
+        if (trim(end($methodLines)) === '}') {
+            array_pop($methodLines); // removes last row
         }
 
         return \implode(PHP_EOL, $methodLines);
@@ -50,7 +48,7 @@ class CalledMethodExistsPass implements Pass
      */
     protected function guardMockedMethodsExists(array $methodNames): void
     {
-        $testedInterface = \get_parent_class($this);
+        $testedInterface = get_parent_class($this);
         $testedInterfaces = [];
         if ($testedInterface) {
             $testedInterfaces[] = $testedInterface;
@@ -58,7 +56,7 @@ class CalledMethodExistsPass implements Pass
             /** @noinspection PhpUnhandledExceptionInspection */
             $mockReflection = new \ReflectionClass($this);
             foreach ($mockReflection->getInterfaces() as $interface) {
-                if (\is_a($interface->getName(), \Mockery\MockInterface::class, true)) {
+                if (is_a($interface->getName(), \Mockery\MockInterface::class, true)) {
                     continue;
                 }
                 $testedInterfaces[] = $interface->getName();
@@ -72,10 +70,9 @@ class CalledMethodExistsPass implements Pass
                     continue 2; // next method to check
                 }
             }
-            /** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
             throw new \Granam\Tests\Tools\Exceptions\MockingOfNonExistingMethod(
                 "Method '{$methodName}' does not exist on tested object '"
-                . \implode(',', $testedInterfaces) . "'"
+                . implode(',', $testedInterfaces) . "'"
                 . ' (use weakMockery() method if you really need to mock it)'
             );
         }

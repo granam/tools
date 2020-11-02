@@ -104,7 +104,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     public function I_can_not_mock_non_existing_method_by_default(): void
     {
         $this->expectException(MockingOfNonExistingMethod::class);
-        $this->expectExceptionMessageRegExp('~resetGregorianCalendar~');
+        $this->expectExceptionMessageMatches('~resetGregorianCalendar~');
         $mock = $this->mockery(\DateTime::class);
         $mock->allows('resetGregorianCalendar');
     }
@@ -128,7 +128,7 @@ class WithTestingFrameworkTest extends TestWithMockery
     public function I_can_not_mock_non_existing_method_by_default_again(): void
     {
         $this->expectException(MockingOfNonExistingMethod::class);
-        $this->expectExceptionMessageRegExp('~resetGregorianCalendar~');
+        $this->expectExceptionMessageMatches('~resetGregorianCalendar~');
         $mock = $this->mockery(\DateTime::class);
         $mock->allows('resetGregorianCalendar');
     }
