@@ -2,7 +2,10 @@
 
 namespace Granam\Tests\Tools\Exceptions;
 
-class MockingOfNonExistingMethod extends \LogicException
+/**
+ * @deprecated Use \Granam\Tests\Exceptions\MockingOfNonExistingMethod from standalone library instead
+ */
+class MockingOfNonExistingMethod extends \Granam\Tests\Exceptions\MockingOfNonExistingMethod
 {
 
 }

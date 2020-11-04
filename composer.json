@@ -16,7 +16,7 @@
     "object",
     "toolbox"
   ],
-  "homepage": "https://github.com/jaroslavtyc/granam-tools",
+  "homepage": "https://github.com/granam/tools",
   "autoload": {
     "psr-4": {
       "Granam\\": "Granam/"
@@ -24,7 +24,8 @@
   },
   "require": {
     "php": ">=7.1",
-    "granam/strict-object": "^3.0"
+    "granam/strict-object": "^3.0",
+    "granam/test-with-mockery": "^1.0"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
