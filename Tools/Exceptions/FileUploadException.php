@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=0);
+
 namespace Granam\Tools\Exceptions;
 
 class FileUploadException extends \RuntimeException implements Runtime
